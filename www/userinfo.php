@@ -39,12 +39,31 @@
 
         $("#btnSave").on({
             click: function() {
-                var bd = $("#userInfoForm").find("input[name='userBDay']");
-                var flag = validBD(bd);
-                if (!flag){
-                    return false;
+                /* Native JS */
+                var User2 = {};
+                var els = document.forms.userInfoForm.elements;
+                for (var i=0; i<5; ++i){
+                    User2[els[i].getAttribute("name")] = els[i].value;
                 }
-                $("#userInfoForm").submit();
+                console.log(JSON.stringify(User2));
+
+                $.ajax({
+                    type: "POST",
+//                    dataType: "JSON",
+                    url: "user_update_ajax.php",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(User2),
+                    success: function(Data) {
+                        console.log(Data);
+                    }
+                });
+
+               /* *//* jQuery JS *//*
+                var User = {};
+                $("#userInfoForm").find(".form-control").each(function(i, e) {
+                    User[$(e).attr("name")] = $(e).val();
+                });
+                console.log(User);*/
             }
         });
     });

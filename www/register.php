@@ -7,9 +7,10 @@
                 url:  "email_check_ajax.php",
                 type: "POST",
                 data: {email: $(email).val()},
-                dataType: "html",
+                dataType: "json",
                 success: function(respData) {
-                    if(respData == 'busy'){
+                        console.log(respData);
+                    if(respData.email == 'busy'){
                         $(email).siblings("p.help-block").css({"display":"block", "color": "red"}).text("Email is busy!");
                         setBadValid(email);
                         email = false;

@@ -11,8 +11,8 @@
     $res = mysql_query($sql) or die("bad arg!");
 
     if(mysql_num_rows($res) == 0){
-        echo "empty";
+        echo '{"email":"free"}';
     }else {
-        echo "busy";
+        echo '{"email":"busy"}';
     }
 ?>
