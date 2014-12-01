@@ -35,6 +35,34 @@
     		resize:vertical;
     	}
     </style>
+    <script type="text/javascript">
+    	window.onload = function() {
+    		console.log(document.getElementById("addProductButton"));
+    		document.getElementById("addProductButton").addEventListener("click", addNewProduct);
+
+    		function addNewProduct() {
+    			var newProduct = {};
+				var xmlhttp = new XMLHttpRequest();
+    			
+    			var formElements = document.forms.addProductFormModal.elements;
+    			for (var i=0; i<formElements.length; ++i){
+    				if(formElements[i].getAttribute("class").indexOf("form-control") != -1)
+                    	newProduct[formElements[i].getAttribute("name")] = formElements[i].value;
+                }
+                console.log(JSON.stringify(newProduct));
+
+                xmlhttp.open("POST", "addNewProductAJAX.php", true);
+                xmlhttp.setRequestHeader('Content-Type', 'application/json')
+                xmlhttp.onreadystagechange = function() {
+                	if (xmlhttp.readyState != 4) return;
+                	console.log(xmlhttp.status);
+                	//console.log(xmlhttp.responseText);
+                };
+
+                xmlhttp.send(JSON.stringify(newProduct));
+    		}
+    	};
+    </script>
 </head>
 <body>
 
@@ -47,8 +75,8 @@
                 <h4 class="modal-title" id="addProductLabel">Новый товар</h4>
             </div>
             <div class="modal-body">
-                <form id="loginFromModal" action="autorizetion.php" method="POST">
-                    <div class="form-group">
+                <form id="addProductFormModal" method="POST">
+                    <div class="form-group text-center">
                         <label>Наименвание товара</label>
                         <input name="productName" type="text" class="form-control" placeholder="Product Name">
                     </div>
@@ -70,7 +98,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button form="loginFromModal" type="submit" class="btn btn-primary">Add</button>
+                <button id="addProductButton" form="addProductFormModal" type="button" class="btn btn-primary">Add</button>
             </div>
         </div>
     </div>
