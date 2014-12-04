@@ -36,32 +36,30 @@
     	}
     </style>
     <script type="text/javascript">
-    	window.onload = function() {
-    		console.log(document.getElementById("addProductButton"));
-    		document.getElementById("addProductButton").addEventListener("click", addNewProduct);
+      window.onload = function() {
+        console.log(document.getElementById("addProductButton"));
+        document.getElementById("addProductButton").addEventListener("click", addNewProduct);
 
-    		function addNewProduct() {
-    			var newProduct = {};
-				var xmlhttp = new XMLHttpRequest();
-    			
-    			var formElements = document.forms.addProductFormModal.elements;
-    			for (var i=0; i<formElements.length; ++i){
-    				if(formElements[i].getAttribute("class").indexOf("form-control") != -1)
-                    	newProduct[formElements[i].getAttribute("name")] = formElements[i].value;
-                }
-                console.log(JSON.stringify(newProduct));
+        function addNewProduct() {
+          var newProduct = {};
+          var xmlhttp = new XMLHttpRequest();
 
-                xmlhttp.open("POST", "addNewProductAJAX.php", true);
-                xmlhttp.setRequestHeader('Content-Type', 'application/json')
-                xmlhttp.onreadystagechange = function() {
-                	if (xmlhttp.readyState != 4) return;
-                	console.log(xmlhttp.status);
-                	//console.log(xmlhttp.responseText);
-                };
+          var formElements = document.forms.addProductFormModal.elements;
+          for (var i=0; i<formElements.length; ++i){
+            if(formElements[i].getAttribute("class").indexOf("form-control") != -1)
+            newProduct[formElements[i].getAttribute("name")] = formElements[i].value;
+          }
+          console.log(JSON.stringify(newProduct));
 
-                xmlhttp.send(JSON.stringify(newProduct));
-    		}
-    	};
+          xmlhttp.open("POST", "addNewProductAJAX.php", true);
+          xmlhttp.setRequestHeader('Content-Type', 'application/json')
+          xmlhttp.onload = function() {
+            console.log(xmlhttp.responseText);
+          };
+
+          xmlhttp.send(JSON.stringify(newProduct));
+        }
+      };
     </script>
 </head>
 <body>
