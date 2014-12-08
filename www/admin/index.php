@@ -39,10 +39,29 @@
     <script type="text/javascript">
       window.onload = function() {
 
-        getProducts("all");
+        getProducts("all", productsList);
 
         document.getElementById("addProductButton").addEventListener("click", addNewProduct);
         var btn = document.getElementById("addProductButton");
+        function addNewProduct() {
+          var newProduct = {};
+          var xmlhttp = new XMLHttpRequest();
+
+          var formElements = document.forms.addProductFormModal.elements;
+          for (var i=0; i<formElements.length; ++i){
+            if(formElements[i].getAttribute("class").indexOf("form-control") != -1)
+              newProduct[formElements[i].getAttribute("name")] = formElements[i].value;
+          }
+
+          xmlhttp.open("POST", "addNewProductAJAX.php", true);
+          xmlhttp.setRequestHeader('Content-Type', 'application/json');
+          xmlhttp.onload = function() {
+            var resp = JSON.parse(xmlhttp.responseText);
+            alert(resp['response']);
+          };
+          xmlhttp.send(JSON.stringify(newProduct));
+          btn.parentNode.childNodes[1].click();
+        }
 
       };
     </script>

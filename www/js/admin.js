@@ -1,35 +1,31 @@
-function getProducts(quantProd) {
+function getProducts(quantProd, el) {
 	prodReq = (quantProd == "all") ? {"count": "all", "number": 0 }	: { "count": "part", "number": quantProd };
 	$.ajax({
 		url: "getProducts.php",
-		//dataType: "json",
+		dataType: "json",
 		type: "POST",
 		data: JSON.stringify(prodReq),
 		contentType: "application/json; charset=utf-8;",
 		success: function(data) {
 			console.log(data);
+			console.log(el);
+
+			if(Array.isArray(data.response)) {
+				var innerString = '';
+				for(var obj in data.response) {
+					innerString += '<tr>';
+					innerString += '<td>'+data.response[obj].id+'</td>';
+					innerString += '<td>'+data.response[obj].name+'</td>';
+					innerString += '<td>'+data.response[obj].description+'</td>';
+					innerString += '<td>'+data.response[obj].category+'</td>';
+					innerString += '<td>'+data.response[obj].price+'</td>';
+					innerString += '</tr>';
+				}
+				el.innerHTML = innerString;
+			}else {
+				alert(data.response);
+			}
 		}
 	});
 
-}
-
-function addNewProduct() {
-	var newProduct = {};
-	var xmlhttp = new XMLHttpRequest();
-
-	var formElements = document.forms.addProductFormModal.elements;
-	for (var i=0; i<formElements.length; ++i){
-		if(formElements[i].getAttribute("class").indexOf("form-control") != -1)
-			newProduct[formElements[i].getAttribute("name")] = formElements[i].value;
-	}
-
-	xmlhttp.open("POST", "addNewProductAJAX.php", true);
-	xmlhttp.setRequestHeader('Content-Type', 'application/json')
-	xmlhttp.addEventListener("progress", function() {console.log("fdfdf");}, false);
-	xmlhttp.onload = function() {
-		var resp = JSON.parse(xmlhttp.responseText);
-		alert(resp['response']);
-	};
-	xmlhttp.send(JSON.stringify(newProduct));
-	btn.parentNode.childNodes[1].click();
 }
