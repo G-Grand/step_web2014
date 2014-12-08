@@ -39,6 +39,7 @@
       window.onload = function() {
         console.log(document.getElementById("addProductButton"));
         document.getElementById("addProductButton").addEventListener("click", addNewProduct);
+        var btn = document.getElementById("addProductButton");
 
         function addNewProduct() {
           var newProduct = {};
@@ -53,11 +54,13 @@
 
           xmlhttp.open("POST", "addNewProductAJAX.php", true);
           xmlhttp.setRequestHeader('Content-Type', 'application/json')
+          xmlhttp.addEventListener("progress", function() {console.log("fdfdf");}, false);
           xmlhttp.onload = function() {
-            console.log(xmlhttp.responseText);
+            var resp = JSON.parse(xmlhttp.responseText);
+            alert(resp['response']);
           };
-
           xmlhttp.send(JSON.stringify(newProduct));
+          btn.parentNode.childNodes[1].click();
         }
       };
     </script>
