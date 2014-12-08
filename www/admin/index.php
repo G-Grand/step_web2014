@@ -30,6 +30,7 @@
     <script type="text/javascript" src="../js/moment-with-langs.js"></script>
     <script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap-datetimepicker.ru.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
     <style type="text/css">
     	.no_width_resize {
     		resize:vertical;
@@ -37,31 +38,12 @@
     </style>
     <script type="text/javascript">
       window.onload = function() {
-        console.log(document.getElementById("addProductButton"));
+
+        getProducts("all");
+
         document.getElementById("addProductButton").addEventListener("click", addNewProduct);
         var btn = document.getElementById("addProductButton");
 
-        function addNewProduct() {
-          var newProduct = {};
-          var xmlhttp = new XMLHttpRequest();
-
-          var formElements = document.forms.addProductFormModal.elements;
-          for (var i=0; i<formElements.length; ++i){
-            if(formElements[i].getAttribute("class").indexOf("form-control") != -1)
-            newProduct[formElements[i].getAttribute("name")] = formElements[i].value;
-          }
-          console.log(JSON.stringify(newProduct));
-
-          xmlhttp.open("POST", "addNewProductAJAX.php", true);
-          xmlhttp.setRequestHeader('Content-Type', 'application/json')
-          xmlhttp.addEventListener("progress", function() {console.log("fdfdf");}, false);
-          xmlhttp.onload = function() {
-            var resp = JSON.parse(xmlhttp.responseText);
-            alert(resp['response']);
-          };
-          xmlhttp.send(JSON.stringify(newProduct));
-          btn.parentNode.childNodes[1].click();
-        }
       };
     </script>
 </head>
