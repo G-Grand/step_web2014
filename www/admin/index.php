@@ -41,6 +41,12 @@
 
         getProducts("all", productsList);
 
+        moreProductsBtn.addEventListener("click", function(){
+            ProductsListObject.showed = showProducts(productsList, 5, ProductsListObject);
+            if(ProductsListObject.showed == ProductsListObject.list.length)
+                moreProductsBtn.style.display = 'none';
+        });
+
         document.getElementById("addProductButton").addEventListener("click", addNewProduct);
         var btn = document.getElementById("addProductButton");
         function addNewProduct() {
@@ -158,7 +164,7 @@
      								</a>
      							</div>
 
-     							<div class="col-md-12">
+     							<div id="productsTable" class="col-md-12">
 		     						<table class="table table-hover">
 		     							<thead>
 		     								<tr>
@@ -173,6 +179,11 @@
 		     								<!-- There some place for products -->
 		     							</tbody>
 		     						</table>
+                    <div class='row'>
+                      <div class='col-md-2 col-md-offset-5'>
+                        <a id='moreProductsBtn' class='btn btn-default' style="display:none;">Еще...</a>
+                      </div>
+                    </div>
 		     					</div>
 							</div>
      					</div>

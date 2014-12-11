@@ -1,3 +1,20 @@
+var ProductsListObject = {};
+function showProducts(el, quantity, prodListObj) {
+	var q = ( (quantity+prodListObj.showed) < prodListObj.list.length) ? (quantity+prodListObj.showed) : prodListObj.list.length;
+	for(var i=prodListObj.showed; i<q; ++i) {
+		innerString  = '<tr>';
+		innerString += '<td>'+prodListObj.list[i].id+'</td>';
+		innerString += '<td>'+prodListObj.list[i].name+'</td>';
+		innerString += '<td>'+prodListObj.list[i].description+'</td>';
+		innerString += '<td>'+prodListObj.list[i].category+'</td>';
+		innerString += '<td>'+prodListObj.list[i].price+'</td>';
+		innerString += '</tr>';
+		$(el).append(innerString);
+	}
+	return q;
+}
+
+
 function getProducts(quantProd, el) {
 	prodReq = (quantProd == "all") ? {"count": "all", "number": 0 }	: { "count": "part", "number": quantProd };
 	$.ajax({
@@ -11,21 +28,15 @@ function getProducts(quantProd, el) {
 			console.log(el);
 
 			if(Array.isArray(data.response)) {
-				var innerString = '';
-				for(var obj in data.response) {
-					innerString += '<tr>';
-					innerString += '<td>'+data.response[obj].id+'</td>';
-					innerString += '<td>'+data.response[obj].name+'</td>';
-					innerString += '<td>'+data.response[obj].description+'</td>';
-					innerString += '<td>'+data.response[obj].category+'</td>';
-					innerString += '<td>'+data.response[obj].price+'</td>';
-					innerString += '</tr>';
+				ProductsListObject['list'] = data.response;
+				ProductsListObject['showed'] = 0;
+				ProductsListObject.showed = showProducts(el, 5, ProductsListObject);
+				if(ProductsListObject.showed != ProductsListObject.list.length) {
+					moreProductsBtn.style.display = '';
 				}
-				el.innerHTML = innerString;
 			}else {
 				alert(data.response);
 			}
 		}
 	});
-
 }
