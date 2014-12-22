@@ -97,13 +97,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input id="productInfoName" type="password" class="form-control" placeholder="Name">
+                            <input id="productInfoName" type="text" class="form-control" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Price</label>
                         <div class="col-sm-10">
-                            <input id="productInfoPrice" type="password" class="form-control" placeholder="Price">
+                            <input id="productInfoPrice" type="text" class="form-control" placeholder="Price">
                         </div>
                     </div>
                 </form>

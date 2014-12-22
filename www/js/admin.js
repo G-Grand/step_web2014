@@ -13,7 +13,13 @@ function showProducts(el, quantity, prodListObj) {
 		$(el).append(innerString);
 	}
     $("#productsList a").on("click", function() {
-        console.log($(this).parents('tr').children("td:first-child").find("a").text());
+        var id =$(this).parents('tr').children("td:first-child").find("a").text();
+        var product = getProductInfo(ProductsListObject, id);
+        console.log(product);
+
+        productInfoId.innerHTML = product.id;
+        productInfoName.value = product.name;
+        productInfoPrice.value = product.price;
     });
 
     return q;
