@@ -87,30 +87,37 @@
                 <h4 class="modal-title" id="productName"></h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" id="productFormInfoModal" method="POST">
+                <form class="form-horizontal" id="productFormInfoModal" enctype="multipart/form-data" method="POST" action="changeProductInfo.php">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">#id</label>
                         <div class="col-sm-10">
                             <p id="productInfoId" class="form-control-static"></p>
+                            <input id="productInfoIdHID" type="hidden" name="productId" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input id="productInfoName" type="text" class="form-control" placeholder="Name">
+                            <input name="productName" id="productInfoName" type="text" class="form-control" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Price</label>
                         <div class="col-sm-10">
-                            <input id="productInfoPrice" type="text" class="form-control" placeholder="Price">
+                            <input name="productPrice" id="productInfoPrice" type="text" class="form-control" placeholder="Price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <input name="productIMG" id="productInfoImg" type="file" >
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="addProductButton" form="addProductFormModal" type="button" class="btn btn-primary">Add</button>
+                <button form="productFormInfoModal" type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>

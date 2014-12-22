@@ -18,6 +18,7 @@ function showProducts(el, quantity, prodListObj) {
         console.log(product);
 
         productInfoId.innerHTML = product.id;
+        productInfoIdHID.innerHTML = product.id;
         productInfoName.value = product.name;
         productInfoPrice.value = product.price;
     });
