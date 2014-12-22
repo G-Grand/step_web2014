@@ -1,17 +1,22 @@
 var ProductsListObject = {};
 function showProducts(el, quantity, prodListObj) {
+    var href = '<a class="btn btn-link" href="#" data-toggle="modal" data-target="#productInfo">';
 	var q = ( (quantity+prodListObj.showed) < prodListObj.list.length) ? (quantity+prodListObj.showed) : prodListObj.list.length;
 	for(var i=prodListObj.showed; i<q; ++i) {
-		innerString  = '<tr>';
-		innerString += '<td>'+prodListObj.list[i].id+'</td>';
-		innerString += '<td>'+prodListObj.list[i].name+'</td>';
-		innerString += '<td>'+prodListObj.list[i].description+'</td>';
-		innerString += '<td>'+prodListObj.list[i].category+'</td>';
-		innerString += '<td>'+prodListObj.list[i].price+'</td>';
+		var innerString  = '<tr>';
+		innerString += '<td>'+href+prodListObj.list[i].id+'</a></td>';
+		innerString += '<td>'+href+prodListObj.list[i].name+'</a></td>';
+		innerString += '<td>'+href+prodListObj.list[i].description+'</a></td>';
+		innerString += '<td>'+href+prodListObj.list[i].category+'</a></td>';
+		innerString += '<td>'+href+prodListObj.list[i].price+'</a></td>';
 		innerString += '</tr>';
 		$(el).append(innerString);
 	}
-	return q;
+    $("#productsList a").on("click", function() {
+        console.log($(this).parents('tr').children("td:first-child").find("a").text());
+    });
+
+    return q;
 }
 
 
@@ -39,4 +44,12 @@ function getProducts(quantProd, el) {
 			}
 		}
 	});
+}
+
+function getProductInfo(PLO, id) {
+    for(var i in PLO['list']) {
+        if(PLO['list'][i].id == id)
+            return PLO['list'][i];
+    }
+    return false;
 }
