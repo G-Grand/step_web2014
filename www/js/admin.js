@@ -15,7 +15,6 @@ function showProducts(el, quantity, prodListObj) {
     $("#productsList a").on("click", function() {
         var id =$(this).parents('tr').children("td:first-child").find("a").text();
         var product = getProductInfo(ProductsListObject, id);
-        console.log(product);
 
         productInfoId.innerHTML = product.id;
         productInfoIdHID.innerHTML = product.id;
@@ -36,9 +35,6 @@ function getProducts(quantProd, el) {
 		data: JSON.stringify(prodReq),
 		contentType: "application/json; charset=utf-8;",
 		success: function(data) {
-			console.log(data);
-			console.log(el);
-
 			if(Array.isArray(data.response)) {
 				ProductsListObject['list'] = data.response;
 				ProductsListObject['showed'] = 0;
